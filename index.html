@@ -23,6 +23,10 @@
     <br />
     Max Operand:
     <input type="text" id="max" size="8">
+    <br />
+    Time for most recent answer: <span id="rtime"></span>s.
+    <br />
+    You've answered <span id="count">0</span>
     
     <p>
     <br />
@@ -32,11 +36,13 @@
     <span id="od" style="width:15">+</span>
     <span id="n2">Number 2</span>
     <br />
-    <span id=="line">_____________</span>
+    <span id="line">_____________</span>
     <br />
     <input type="text" id="answer" size="8" style="text-align:right;">
     </p>
+    <div id="dataviz"></div>
   </body>
+  <script src="https://d3js.org/d3.v4.js"></script>
   <script src="arithmetic.js"></script>
 </html>
 

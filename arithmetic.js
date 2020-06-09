@@ -28,9 +28,15 @@ max_in.oninput = function(){
 
 var ans_in = document.getElementById("answer");
 var ans;
+var rtime = document.getElementById("rtime");
+var count = document.getElementById("count");
 ans_in.oninput = function(){
   ans = ans_in.value;
   if(ans == a){
+    ans_in.value = '';
+    times.push(Date.now() - time_start);
+    rtime.textContent = Math.floor((Date.now() - time_start)/100)/10;
+    count.textContent = times.length;
     new_problem();
   }
 }
@@ -70,19 +76,22 @@ function assign_nums(){
   return [n1, n2];
 }
 
+var times = [];
+var time_start = 0;
+
 function new_problem(){
   op_display.textContent = cop;
-  //console.log(op_display.getBoundingClientRect().width);
-  //n1 = Math.floor(Math.random()*max);
-  //n2 = Math.floor(Math.random()*max);
   nums = assign_nums();
   n1 = nums[0];
   n2 = nums[1];
   a = answer(cop, n1, n2);
   n1e.textContent = n1;
   n2e.textContent = n2;
-  console.log(n1, cop, n2, a);
+  //console.log(n1, cop, n2, a);
+  time_start = Date.now();
+  console.log(time_start);
 }
+
 
 
 
