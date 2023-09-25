@@ -9,7 +9,7 @@
 //make division problems more random
 //DONE - percentages
 //DONE - keep track of question timings over time
-//display all time answered
+//DONE - display all time answered
 
 
 
@@ -44,6 +44,7 @@ var ans_in = document.getElementById("answer");
 var ans;
 var rtime = document.getElementById("rtime");
 var count = document.getElementById("count");
+var alltimecount = document.getElementById("alltimecount");
 ans_in.oninput = function(){
   ans = ans_in.value;
   if(ans == a || (cop == "%" && (Math.abs(ans - a) < ans * .05))){
@@ -55,6 +56,8 @@ ans_in.oninput = function(){
     timings[strop].push([time, max, Date.now()]);
     localStorage.setItem("timings", JSON.stringify(timings))
     count.textContent = times.length;
+    alltimecount.textContent = Object.values(timings)
+      .reduce((acc, val) => acc + val.length, 0)
     new_problem();
   }
 }
