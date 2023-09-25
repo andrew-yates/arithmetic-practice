@@ -7,9 +7,10 @@
 //carrying or not carrying
 //move answer line up a bit?
 //make division problems more random
+//DONE - percentages
 
 var cop = "+";
-var operations = ["add", "sub", "mult", "div"];
+var operations = ["add", "sub", "mult", "div", "percentage"];
 for(var i = 0; i < operations.length; i++){
   var opel = document.getElementById(operations[i]);
   opel.onclick = function(){
@@ -32,7 +33,8 @@ var rtime = document.getElementById("rtime");
 var count = document.getElementById("count");
 ans_in.oninput = function(){
   ans = ans_in.value;
-  if(ans == a){
+  console.log(ans, a);
+  if(ans == a || Math.abs(ans - a) < ans * .05){
     ans_in.value = '';
     times.push(Date.now() - time_start);
     rtime.textContent = Math.floor((Date.now() - time_start)/100)/10;
@@ -53,6 +55,8 @@ function answer(operation, num1, num2){
     return num1/num2;
   }else if(operation == "-"){
     return num1-num2;
+  }else if(operation == "%"){
+    return num1 * num2 / 100;
   }else{
     return num1*num2;
   }
@@ -73,6 +77,9 @@ function assign_nums(){
     }
     //console.log(n1);
   }
+  if(cop == "%") {
+    n1 = Math.floor(Math.random() * 100);
+  }
   return [n1, n2];
 }
 
@@ -87,6 +94,10 @@ function new_problem(){
   a = answer(cop, n1, n2);
   n1e.textContent = n1;
   n2e.textContent = n2;
+  if (cop ==  "%"){
+    op_display.textContent = "of";
+    n1e.textContent = `${n1}%`
+  }
   //console.log(n1, cop, n2, a);
   time_start = Date.now();
   console.log(time_start);
