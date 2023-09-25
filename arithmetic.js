@@ -8,17 +8,30 @@
 //move answer line up a bit?
 //make division problems more random
 //DONE - percentages
+//DONE - keep track of question timings over time
+//display all time answered
+
+
 
 var cop = "+";
+var strop = "add";
 var operations = ["add", "sub", "mult", "div", "percentage"];
 for(var i = 0; i < operations.length; i++){
   var opel = document.getElementById(operations[i]);
   opel.onclick = function(){
     console.log(this.value);
     cop = this.value;
+    strop = this.id;
     new_problem();
   }
 }
+
+const timings = JSON.parse(localStorage.getItem("timings")) || {};
+operations.forEach(op => {
+  if(!timings[op]) {
+    timings[op] = [];
+  }
+})
 
 var max_in = document.getElementById("max");
 var max;
@@ -33,11 +46,14 @@ var rtime = document.getElementById("rtime");
 var count = document.getElementById("count");
 ans_in.oninput = function(){
   ans = ans_in.value;
-  console.log(ans, a);
   if(ans == a || (cop == "%" && (Math.abs(ans - a) < ans * .05))){
     ans_in.value = '';
     times.push(Date.now() - time_start);
-    rtime.textContent = Math.floor((Date.now() - time_start)/100)/10;
+    const time = Math.floor((Date.now() - time_start)/100)/10
+    rtime.textContent = time;
+
+    timings[strop].push([time, max, Date.now()]);
+    localStorage.setItem("timings", JSON.stringify(timings))
     count.textContent = times.length;
     new_problem();
   }
