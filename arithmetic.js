@@ -34,7 +34,7 @@ var count = document.getElementById("count");
 ans_in.oninput = function(){
   ans = ans_in.value;
   console.log(ans, a);
-  if(ans == a || Math.abs(ans - a) < ans * .05){
+  if(ans == a || (cop == "%" && (Math.abs(ans - a) < ans * .05))){
     ans_in.value = '';
     times.push(Date.now() - time_start);
     rtime.textContent = Math.floor((Date.now() - time_start)/100)/10;
