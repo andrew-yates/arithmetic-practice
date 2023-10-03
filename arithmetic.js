@@ -97,7 +97,15 @@ function assign_nums(){
     //console.log(n1);
   }
   if(cop == "%") {
-    n1 = Math.floor(Math.random() * 100);
+    n2 = Math.max(Math.floor(Math.random() * Math.sqrt(n1))+1, 1);
+    //console.log(n1, n2);
+    n1 = Math.max(Math.floor(n1/n2) * n2, 1);
+    if(Math.random() < .5){
+      n2 = n1/n2;
+    }
+    let percent = 100 / n2;
+    n2 = n1;
+    n1 = percent;
   }
   return [n1, n2];
 }
@@ -115,7 +123,7 @@ function new_problem(){
   n2e.textContent = n2;
   if (cop ==  "%"){
     op_display.textContent = "of";
-    n1e.textContent = `${n1}%`
+    n1e.textContent = `${Math.round(n1 * 100)/100}%`
   }
   //console.log(n1, cop, n2, a);
   time_start = Date.now();
