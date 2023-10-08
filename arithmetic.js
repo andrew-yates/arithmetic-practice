@@ -81,6 +81,15 @@ function answer(operation, num1, num2){
   }
 }
 
+const gcd = (a,b) => {
+  if (!b) {
+    return a;
+  }
+
+  return gcd(b, a % b);
+}
+
+
 function assign_nums(){
   n1 = Math.floor(Math.random() * max);
   n2 = Math.floor(Math.random() * max);
@@ -97,15 +106,18 @@ function assign_nums(){
     //console.log(n1);
   }
   if(cop == "%") {
-    n2 = Math.max(Math.floor(Math.random() * Math.sqrt(n1))+1, 1);
-    //console.log(n1, n2);
-    n1 = Math.max(Math.floor(n1/n2) * n2, 1);
-    if(Math.random() < .5){
-      n2 = n1/n2;
+    // What I would like to do: come up with a percentage that ends in a 5 or 0 and a number,
+    // where the percentage of that number is a whole number.
+    // let percent = Math.floor(Math.random() * 20) * 5;
+    let m5 = Math.floor(Math.random() * 20);
+    let mustBeMultipleOf = 20 / gcd(m5, 20);
+    let num = Math.floor(Math.random() * max/mustBeMultipleOf) * mustBeMultipleOf;
+    let percent = m5 * 5;
+    if (Math.random() > .5) {
+      percent = percent + 100;
     }
-    let percent = 100 / n2;
-    n2 = n1;
     n1 = percent;
+    n2 = num;
   }
   return [n1, n2];
 }
